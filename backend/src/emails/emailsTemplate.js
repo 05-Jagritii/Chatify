@@ -1,3 +1,12 @@
+/**
+ * Create an HTML email template welcoming a user to Chatify.
+ *
+ * The returned template personalizes the greeting with the provided name and uses the provided URL for the call-to-action button.
+ *
+ * @param {string} name - Recipient's display name used in the greeting.
+ * @param {string} clientURL - URL used as the action button link.
+ * @returns {string} A complete HTML document as a string representing the welcome email.
+ */
 export function createWelcomeEmailTemplate(name, clientURL) {
   return `
   <!DOCTYPE html>
