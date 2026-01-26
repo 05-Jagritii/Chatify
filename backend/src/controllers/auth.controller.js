@@ -7,6 +7,10 @@ import { ENV } from "../lib/env.js";
 export const signup = async (req,res)=>{
     const {fullName,email,password} = req.body
 
+    if(!email || !password){
+        return res.status(400).json({message:"Email and password are required."});
+    }
+
     try {
         if(!fullName || !email || !password){
             return res.status(400).json({message:"All fields are required"});
@@ -96,6 +100,11 @@ export const login = async (req,res)=>{
     }
 };
 export const logout = async ( _,res)=>{
-    res.cookie("jwt","",{maxAge:0})
-    res.status(200).json({message: "Logged out succesfully"});
+    res.cookie("jwt","",{
+        maxAge:0,
+        httpOnly: true,
+        sameSite: "strict",
+        secure: ENV.NODE_ENV !== "development",
+    })
+   res.status(200).json({message: "Logged out successfully"});
 };
