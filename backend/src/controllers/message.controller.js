@@ -41,11 +41,11 @@ export const sendMessage = async (req,res) => {
         const senderId = req.user._id;
 
         if(!text && !image){
-            return res.staus(400).json({message:"Text or image is required."});
+            return res.status(400).json({message:"Text or image is required."});
         }
         
         if(senderId.equals(receiverId)){
-            return res.staus(400).json({message:"Cannot send messages to yourself."});
+            return res.status(400).json({message:"Cannot send messages to yourself."});
         }
 
         const receiverExists = await User.exists({_id: receiverId});
