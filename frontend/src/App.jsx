@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { Route, Routes } from "react-router";
+import ChatPage from "./pages/ChatPage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import { useAuthStore } from "./store/useAuthStore.js";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const {authUser, login, isLoggedIn} = useAuthStore();
+
+  console.log("auth user:",authUser);
+  console.log("isLoggedIn:",isLoggedIn);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+    
+    <div className="min-h-screen bg-slate-900 relative flex items-center justify-center p-4 overflow-hidden">
+
+      {/* Dotted grid */}
+  <div className="absolute inset-0 
+    bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.08)_1px,transparent_0)]
+    bg-[size:20px_20px]" />
+
+
+    {/* Micro shapes */}
+  <div className="absolute top-16 left-20 w-20 h-20 border border-white/10 rounded-full" />
+  <div className="absolute top-32 right-40 w-28 h-14 border border-white/10 rounded-lg rotate-12" />
+  <div className="absolute top-1/4 left-1/3 w-16 h-16 border border-white/10 rounded-xl rotate-6" />
+  <div className="absolute top-1/2 right-24 w-24 h-12 border border-white/10 rounded-full -rotate-6" />
+  <div className="absolute bottom-40 left-1/4 w-14 h-14 border border-white/10 rounded-lg" />
+  <div className="absolute bottom-24 right-1/3 w-20 h-10 border border-white/10 rounded-full rotate-3" />
+  <div className="absolute bottom-1/3 right-16 w-16 h-16 border border-white/10 rounded-full" />
+  <div className="absolute top-20 right-1/4 w-12 h-12 border border-white/10 rounded-xl rotate-12" />
+  
+
+  {/* Indigo glow */}
+  <div className="absolute -top-32 -left-32 w-[28rem] h-[28rem] 
+    bg-indigo-500/25 rounded-full blur-[120px]" />
+
+  {/* Rose glow */}
+  <div className="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] 
+    bg-rose-500/20 rounded-full blur-[120px]" />
+
+
+    <button onClick={login} className="z-10">login</button>
+
+
+    <Routes>
+      <Route path="/" element={<ChatPage/>} />
+      <Route path="/login" element={<LoginPage/>} />
+      <Route path="/signup" element={<SignUpPage/>} />
+    </Routes>
+
+    </div>
+  );
 }
 
-export default App
+export default App;
