@@ -116,15 +116,15 @@ export const updateProfile = async(req,res)=>{
         const {pfp} = req.body;
         if(!pfp) return res.status(400).json({message:"Profile picture is required"})
 
-        const userId = res.req._id;
+        const userId = req.user._id;
 
-        const uploadResponse = await cloudinary.uploader(pfp)
+        const uploadResponse = await cloudinary.uploader.upload(pfp);
 
-        await User.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
             userId,
             {pfp:uploadResponse.secure_url},
             {new:true}
-        );
+        ).select("-password");
 
         res.status(200).json(updatedUser)
 
