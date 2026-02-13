@@ -1,7 +1,7 @@
 import Message from "../models/Message.js";
 import User from "../models/User.js";
 
-export const getAllContacts = async (req, res)=>{
+export const getAllContacts = async (req, res)=>{ 
 
     try {
         const loggedInUserId = req.user._id;
@@ -62,7 +62,7 @@ export const sendMessage = async (req,res) => {
             imageUrl = uploadResponse.secure_url;
         }
 
-        const newMessage = new Messsage({
+        const newMessage = new Message({
             senderId,
             receiverId,
             text,
@@ -70,6 +70,7 @@ export const sendMessage = async (req,res) => {
         });
 
         await newMessage.save();
+        res.status(201).json(newMessage);
 
     } catch (error) {
         console.log("Error in sendMessage controller:",error.message);
@@ -102,7 +103,7 @@ export const getChatPartners = async (req,res) => {
 
         res.status(200).json(chatPartners)
     } catch (error) {
-        console.error("Error in geetChatPartners:", error.message);
+        console.error("Error in getChatPartners:", error.message);
         res.status(500).json({error: "Internal server error"});
     }
 };
