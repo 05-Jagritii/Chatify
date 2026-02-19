@@ -7,7 +7,7 @@ import MessageInput from "./MessageInput.jsx";
 import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton.jsx";
 
 function ChatContainer() {
-  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading } =
+  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading, subscribeToMessages , unsubscribeFromMessages} =
     useChatStore();
   const { authUser } = useAuthStore();
 
@@ -15,7 +15,10 @@ function ChatContainer() {
 
   useEffect(() => {
     getMessagesByUserId(selectedUser._id);
-  }, [selectedUser, getMessagesByUserId]);
+    subscribeToMessages();
+
+    return () => unsubscribeFromMessages();
+  }, [selectedUser, getMessagesByUserId, subscribeToMessages, unsubscribeFromMessages]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -23,6 +26,7 @@ function ChatContainer() {
       scrollRef.current.scrollHeight;
   }
   }, [messages]);
+
 
   return (
     <div className="flex flex-col h-full">
