@@ -26,7 +26,7 @@ const PORT = ENV.PORT || 3000
 
 app.use(express.json({limit: "5mb"})) //req.body
 app.use(cors({
-  origin: ["http://localhost:5174", "http://localhost:5173"],
+  origin: ENV.CLIENT_URL,
   credentials: true
 }))
 app.use(cookieParser())
